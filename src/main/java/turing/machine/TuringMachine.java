@@ -45,7 +45,7 @@ public class TuringMachine {
 
     public void run() {
 
-        while(true) {
+        while(state != -1) {
             boolean ok = true;
             for (Transition st : states) {
                 if (st.getRead() == tape[headPos] && state == st.getState()) {
@@ -89,7 +89,7 @@ public class TuringMachine {
                 new Transition('1', '1', 8, 8, Direction.LEFT),
                 new Transition('0', '1', 8, 0, Direction.RIGHT),
                 new Transition('1', '1', 9, 9, Direction.LEFT),
-                new Transition('0', '0', 9, 11, Direction.RIGHT)
+                new Transition('0', '0', 9, -1, Direction.RIGHT)
         };
         return states;
 
