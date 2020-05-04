@@ -23,10 +23,8 @@ public class TuringMachine {
         states = getStatesForMultiplication();
     }
 
-    @Override
-    public String toString() {
+    public String print() {
         try {
-            int headPos = head.previousIndex();
             StringBuilder s = new StringBuilder("[ ");
 
             for (int i = Math.max(headPos - 15, 0); i <= headPos; i++) {
@@ -50,9 +48,8 @@ public class TuringMachine {
         while(true) {
             boolean ok = true;
             for (Transition st : states) {
-                if (st.getWrite() == tape[headPos] & state == st.getState()) {
-                    System.out.print(toString()); //tape print
-                    System.out.print("." + headPos + "." + state + "\n");
+                if (st.getRead() == tape[headPos] && state == st.getState()) {
+                    System.out.println(print()); //tape print
                     tape[headPos] = st.getWrite();
                     state = st.getNextState();
                     headPos += st.getDirection().getDirection();
@@ -63,7 +60,7 @@ public class TuringMachine {
                 break;
             }
         }
-        System.out.println("Result: " + tape);
+        System.out.println("Result: " + print());
     }
 
 
