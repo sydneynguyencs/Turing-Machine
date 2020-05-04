@@ -10,7 +10,7 @@ public enum Direction {
         this.direction = direction;
     }
 
-    public int getDirection() {
+    public int getDifference() {
         return direction;
     }
 }
