@@ -6,7 +6,7 @@ package turing.machine;
 public class App {
 
     public static void main(String[] args) {
-        TuringMachine turing = new TuringMachine("111*111****");
+        TuringMachine turing = new TuringMachine("1110111"); //
         turing.run();
     }
 }
