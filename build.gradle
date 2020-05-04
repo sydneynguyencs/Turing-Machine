@@ -37,7 +37,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClassName = 'touring.maschine.App'
+    mainClassName = 'turing.machine.App'
 }
 
 test {
