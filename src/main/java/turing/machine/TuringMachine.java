@@ -8,8 +8,8 @@ public class TuringMachine {
     private State startState;
     private Set<State> states;
     private Set<Transition> transitions;
-    private List<String> tape;
-    private String blank;
+    private List<Character> tape;
+    private char blank;
     private ListIterator<String> head;
 
     public TuringMachine(String input) {
@@ -19,12 +19,12 @@ public class TuringMachine {
         states.add(startState);
         transitions = new HashSet<>();
         tape = new ArrayList<>();
-        blank = "_";
+        blank = '_';
     }
 
     public void initializeTape() {
         for(int i = 0; i < input.length(); i++) {
-            tape.add(input.charAt(i) + "");
+            tape.add(input.charAt(i));
         }
     }
 
@@ -44,7 +44,7 @@ public class TuringMachine {
                 s.append(tape.get(i)).append(" ");
             }
 
-            return s + "]";
+            return s.append(']').toString();
         } catch (Exception e) {
             return "";
         }
