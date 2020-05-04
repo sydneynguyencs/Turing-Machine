@@ -1,38 +1,39 @@
 package turing.machine;
 
 public class Transition {
-    private String value;
-    private String nextValue;
+    private char read;
+    private char write;
+    private int state;
+    private int nextState;
     private Direction direction;
-    private State state;
-    private State nextState;
 
-    public Transition(String value, String nextValue, Direction direction, State state, State nextState) {
-        this.value = nextValue;
-        this.nextValue = nextValue;
+    public Transition(char read, char write, int state, int nextState, Direction direction) {
+        this.read = read;
+        this.write = write;
         this.state = state;
         this.nextState = nextState;
         this.direction = direction;
     }
 
-    public String getValue() {
-        return value;
+    public char getRead() {
+        return read;
     }
 
-    public String getNextValue() {
-        return nextValue;
+    public char getWrite() {
+        return write;
     }
+
+    public int getState() { return state; }
+
+    public int getNextState() { return nextState; }
 
     public Direction getDirection() {
         return direction;
     }
 
-    public State getNextState() {
-        return nextState;
-    }
 
     @Override
     public String toString() {
-        return " => " + nextState + " | " + direction;
+        return " => " + write + " | " + direction;
     }
 }
