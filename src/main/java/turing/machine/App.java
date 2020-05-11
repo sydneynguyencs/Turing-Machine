@@ -3,10 +3,26 @@
  */
 package turing.machine;
 
+import java.util.Scanner;
+
 public class App {
 
     public static void main(String[] args) {
-        TuringMachine turing = new TuringMachine("001000       "); //
+        /*
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Erste Zahl: ");
+        int a = sc.nextInt();
+        System.out.println("\nZweite Zahl: ");
+        int b = sc.nextInt();
+        */
+        int a = 2, b = 20;
+        StringBuilder input = new StringBuilder();
+        input.append("0".repeat(Math.max(0, a)));
+        input.append("1");
+        input.append("0".repeat(Math.max(0, b)));
+        input.append(" ".repeat(100));
+
+        TuringMachine turing = new TuringMachine(input.toString()); //
         turing.run();
     }
 }

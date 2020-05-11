@@ -58,7 +58,16 @@ public class TuringMachine {
                 break;
             }
         }
-        System.out.println("Result: " + print());
+
+        int res = 0;
+        for(char c : tape) {
+            if (c == '0') {
+                res++;
+            }
+        }
+        System.out.println("____________________________________________________________");
+        System.out.println("Result als Band: " + print());
+        System.out.println("Result als Dec: " + res);
     }
 
 
