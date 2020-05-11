@@ -1,7 +1,11 @@
 package turing.machine;
 
 import java.util.*;
+import java.util.logging.ConsoleHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import static java.util.logging.Logger.*;
 import static turing.machine.Direction.LEFT;
 import static turing.machine.Direction.RIGHT;
 
@@ -9,6 +13,7 @@ public class TuringMachine {
 
     public static final int INITIAL_STATE = 0;
     public static final char OUTPUT_SEPARATOR = 'x';
+    private static Logger logger = getLogger(TuringMachine.class.getCanonicalName());
     private int state;
     private String input;
     private char[] tape;
@@ -17,6 +22,8 @@ public class TuringMachine {
     private Transition[] states;
 
     public TuringMachine(String input) {
+        //logger.addHandler(new ConsoleHandler());
+        logger.setLevel(Level.INFO);
         state = INITIAL_STATE;
         this.input = input;
         tape = input.strip().toCharArray();
@@ -113,6 +120,7 @@ public class TuringMachine {
 
     }*/
     public void fastRun() {
+        logger.info(String.format("state: %s  head position: %d tape: %s", state, headPos, tapeToString()));
         while (true) {
             boolean transitionFound = false;
             for (Transition t : getStatesForMultiplication()) {
@@ -132,6 +140,7 @@ public class TuringMachine {
                     }
                     state = t.getNextState();
                     transitionFound = true;
+                    logger.info(String.format("new state: %s | head position: %d | tape symbol: %s |tape: %s", state, headPos,tape[headPos], tapeToString()));
                     break;
                 }
             }
@@ -172,9 +181,12 @@ public class TuringMachine {
                 new Transition(' ', ' ', 12, 0, RIGHT),
                 //inner loop with multiple steps
                 new Transition('0', '0', 10, 13, LEFT),
-                new Transition('0', '0', 13, 4, LEFT),
+                new Transition(' ', '0', 13, 4, RIGHT),
+                new Transition('0', '0', 13, 13, LEFT),
+
                 //
                 new Transition('0', '0', 12, 14, LEFT),
+                new Transition('0', '0', 14, 14, LEFT),
                 new Transition(' ', ' ', 14, 0, RIGHT),
 
         };

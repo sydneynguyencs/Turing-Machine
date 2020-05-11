@@ -1,8 +1,13 @@
 package turing.machine;
 
+import com.google.common.base.Strings;
+import com.google.common.primitives.Chars;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.Arrays;
+import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -73,14 +78,36 @@ class TuringMachineTest {
      */
     @Test
     void getStatesForMultiplicationMultipleStepsInnerLoop() {
-        firstMultiplicand = "000000000";
-        secondMultiplicand = "00000000000";
+        firstMultiplicand = "0";
+        secondMultiplicand = "000";
         setTuringMachine(firstMultiplicand, secondMultiplicand);
         tm.fastRun();
-        Assertions.assertEquals("0", tm.tapeToString().strip());
+        Assertions.assertEquals("000", tm.tapeToString().strip());
+    }
+
+    @Test
+    void getStatesForMultiplicationWithRandomNumber() {
+        Random random = new Random();
+        int firstNum = random.nextInt(100);
+        int secondNum = random.nextInt(100);
+        firstMultiplicand = getUnaryCode(firstNum);
+        secondMultiplicand = getUnaryCode(secondNum);
+        setTuringMachine(firstMultiplicand, secondMultiplicand);
+        tm.fastRun();
+        Assertions.assertEquals(getUnaryCode(firstNum * secondNum), tm.tapeToString().strip());
     }
 
     private void setTuringMachine(String firstMultiplicand, String secondMultiplicand) {
         tm = new TuringMachine(String.format(inputPattern, firstMultiplicand, secondMultiplicand));
+    }
+
+    private String getUnaryCode(int decimal) {
+        String result = "";
+        if (decimal < 0) {
+            throw new IllegalArgumentException("decimal must be positive number!");
+        }
+        char[] cArray = new char[decimal];
+        Arrays.fill(cArray, 0, cArray.length - 1, '0');
+        return String.valueOf(cArray);
     }
 }
