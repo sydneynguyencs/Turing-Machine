@@ -34,6 +34,6 @@ public class Transition {
 
     @Override
     public String toString() {
-        return " => " + write + " | " + direction;
+        return read +"|"+write+","+direction + " (q"+state+" => q"+nextState+")";
     }
 }

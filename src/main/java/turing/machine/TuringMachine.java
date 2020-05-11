@@ -43,8 +43,9 @@ public class TuringMachine {
             boolean ok = true;
             for (Transition st : states) {
                 if (st.getRead() == tape[headPos] && state == st.getState()) {
-                    System.out.println("Step: " + count); //tape print
-                    System.out.print("Head Position: " + headPos + " State: " + state + "\n\n");
+                    System.out.println("\nStep: " + count); //tape print
+                    System.out.println(st.toString());
+                    System.out.println("Head Position: " + headPos);
                     tape[headPos] = st.getWrite();
                     state = st.getNextState();
                     headPos += st.getDirection().getDirection();
