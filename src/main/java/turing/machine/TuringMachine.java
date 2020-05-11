@@ -4,6 +4,8 @@ import java.util.*;
 
 public class TuringMachine {
 
+    private final int INITIAL_STATE = 0;
+    private final char OUTPUT_SEPARATOR = 'x';
     private int state;
     private String input;
     private char[] tape;
@@ -12,9 +14,9 @@ public class TuringMachine {
     private Transition[] states;
 
     public TuringMachine(String input) {
-        state = 0;
+        state = INITIAL_STATE;
         this.input = input;
-        tape = input.toCharArray();
+        tape = input.strip().toCharArray();
         headPos = 0;
         states = getStatesForMultiplication();
     }
@@ -39,7 +41,7 @@ public class TuringMachine {
 
         int count = 0;
 
-        while(true) {
+        while (true) {
             boolean ok = true;
             for (Transition st : states) {
                 if (st.getRead() == tape[headPos] && state == st.getState()) {
@@ -61,7 +63,7 @@ public class TuringMachine {
         System.out.println("Result: " + print());
     }
 
-
+    /*
     //add states and transitions
     public Transition[] getStatesForMultiplication() {
         Transition[] states = {
@@ -98,6 +100,47 @@ public class TuringMachine {
         };
         return states;
 
+    }*/
+    public void fastRun() {
+        while (true) {
+            boolean transitionFound = false;
+            for (Transition t : getStatesForMultiplication()) {
+                if ((tape[headPos] == t.getRead()) && (state == t.getState())) {
+                    //move head
+                    tape[headPos] = t.getWrite();
+                    if (t.getDirection().equals(Direction.RIGHT)) {
+                        headPos++;
+                    } else {
+                        headPos--;
+                    }
+                    if (headPos > tape.length - 1 || headPos < 0) {
+                        return;
+                    }
+                    state = t.getNextState();
+                    transitionFound = true;
+                    break;
+                }
+            }
+            if (!transitionFound) {
+                break;
+            }
+        }
     }
 
+    public Transition[] getStatesForMultiplication() {
+        Transition[] states = {
+
+                new Transition('1', ' ', 0, 1, Direction.RIGHT),
+                new Transition('0', ' ', 1, 1, Direction.RIGHT),
+                new Transition(' ', ' ', 1, 2, Direction.RIGHT),
+                new Transition(' ', OUTPUT_SEPARATOR, 1, 2, Direction.RIGHT),
+
+        };
+        return states;
+
+    }
+
+    public String tapeToString() {
+        return String.valueOf(tape);
+    }
 }
