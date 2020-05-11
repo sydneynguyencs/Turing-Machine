@@ -71,7 +71,7 @@ public class TuringMachine {
                 new Transition('1', '1', 1, 2, Direction.RIGHT),
                 new Transition(' ', ' ', 2, 0, Direction.LEFT),
 
-                new Transition('0', '0', 2, 3, Direction.RIGHT),
+                new Transition('0', ' ', 2, 3, Direction.RIGHT),
                 new Transition('0', '0', 3, 3, Direction.RIGHT),
                 new Transition(' ', 'x', 3, 4, Direction.RIGHT),
                 new Transition('x', 'x', 3, 4, Direction.RIGHT),
