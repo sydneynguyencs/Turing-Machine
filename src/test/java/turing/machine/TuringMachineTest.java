@@ -57,12 +57,24 @@ class TuringMachineTest {
     }
 
     /**
-     * case: 0...01
+     * case: when the outer loop is finished
      */
     @Test
     void getStatesForMultiplicationFirstWordIsFinished() {
         firstMultiplicand = "0";
         secondMultiplicand = "0";
+        setTuringMachine(firstMultiplicand, secondMultiplicand);
+        tm.fastRun();
+        Assertions.assertEquals("0", tm.tapeToString().strip());
+    }
+
+    /**
+     * case: inner loop takes multiple steps
+     */
+    @Test
+    void getStatesForMultiplicationMultipleStepsInnerLoop() {
+        firstMultiplicand = "000000000";
+        secondMultiplicand = "00000000000";
         setTuringMachine(firstMultiplicand, secondMultiplicand);
         tm.fastRun();
         Assertions.assertEquals("0", tm.tapeToString().strip());

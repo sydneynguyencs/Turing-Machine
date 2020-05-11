@@ -169,7 +169,14 @@ public class TuringMachine {
                 new Transition(' ', '0', 10, 11, LEFT),
                 new Transition('0', '0', 11, 11, LEFT),
                 new Transition('1', '1', 11, 12, LEFT),
-                new Transition(' ', ' ', 12, 0, RIGHT)
+                new Transition(' ', ' ', 12, 0, RIGHT),
+                //inner loop with multiple steps
+                new Transition('0', '0', 10, 13, LEFT),
+                new Transition('0', '0', 13, 4, LEFT),
+                //
+                new Transition('0', '0', 12, 14, LEFT),
+                new Transition(' ', ' ', 14, 0, RIGHT),
+
         };
         return states;
 
