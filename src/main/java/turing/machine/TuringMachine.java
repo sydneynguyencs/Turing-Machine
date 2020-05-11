@@ -18,29 +18,25 @@ public class TuringMachine {
         this.input = input;
         tape = input.toCharArray();
         blank = ' ';
-        symbolDivisor = '_';
+        symbolDivisor = '*';
         headPos = 0;
         states = getStatesForMultiplication();
     }
 
     public String print() {
-        try {
-            StringBuilder s = new StringBuilder("[ ");
+        StringBuilder s = new StringBuilder("[ ");
 
-            for (int i = Math.max(headPos - 15, 0); i <= headPos; i++) {
-                s.append(tape[i]).append(" ");
-            }
-
-            s.append("[Y] ");
-
-            for (int i = headPos + 1; i < Math.min(headPos + 15, tape.length); i++) {
-                s.append(tape[i]).append(" ");
-            }
-
-            return s.append(']').toString();
-        } catch (Exception e) {
-            return "";
+        for (int i = Math.max(headPos - 15, 0); i < headPos; i++) {
+            s.append(tape[i]).append(" ");
         }
+
+        s.append("[H] ");
+
+        for (int i = headPos; i <= Math.min(headPos + 15, tape.length - 1); i++) {
+            s.append(tape[i]).append(" ");
+        }
+
+        return s.append(']').toString();
     }
 
     public void run() {
@@ -57,6 +53,7 @@ public class TuringMachine {
                     tape[headPos] = st.getWrite();
                     state = st.getNextState();
                     headPos += st.getDirection().getDirection();
+                    System.out.println(print()); //tape print
                     count++;
                     ok = false;
                 }
