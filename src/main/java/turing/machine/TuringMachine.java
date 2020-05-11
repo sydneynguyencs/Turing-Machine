@@ -92,7 +92,7 @@ public class TuringMachine {
 
                 new Transition('1', ' ', 0, 9, Direction.RIGHT),
                 new Transition('0', ' ', 9, 9, Direction.RIGHT),
-                new Transition('0', ' ', 9, 10, Direction.RIGHT),
+                new Transition(' ', ' ', 9, 10, Direction.RIGHT),
                 new Transition('x', ' ', 9, 10, Direction.RIGHT),
 
         };
