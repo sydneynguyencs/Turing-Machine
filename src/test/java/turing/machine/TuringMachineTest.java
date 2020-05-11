@@ -78,18 +78,17 @@ class TuringMachineTest {
      */
     @Test
     void getStatesForMultiplicationMultipleStepsInnerLoop() {
-        firstMultiplicand = "0";
-        secondMultiplicand = "000";
+        firstMultiplicand = "000";
+        secondMultiplicand = "00000";
         setTuringMachine(firstMultiplicand, secondMultiplicand);
         tm.fastRun();
-        Assertions.assertEquals("000", tm.tapeToString().strip());
+        Assertions.assertEquals("000000000000000", tm.tapeToString().strip());
     }
 
     @Test
-    void getStatesForMultiplicationWithRandomNumber() {
-        Random random = new Random();
-        int firstNum = random.nextInt(100);
-        int secondNum = random.nextInt(100);
+    void getStatesForMultiplicationBigNumbers() {
+        int firstNum = 13;
+        int secondNum = 17;
         firstMultiplicand = getUnaryCode(firstNum);
         secondMultiplicand = getUnaryCode(secondNum);
         setTuringMachine(firstMultiplicand, secondMultiplicand);
@@ -107,7 +106,7 @@ class TuringMachineTest {
             throw new IllegalArgumentException("decimal must be positive number!");
         }
         char[] cArray = new char[decimal];
-        Arrays.fill(cArray, 0, cArray.length - 1, '0');
-        return String.valueOf(cArray);
+        Arrays.fill(cArray, 0, cArray.length , '0');
+        return String.valueOf(cArray).strip();
     }
 }
