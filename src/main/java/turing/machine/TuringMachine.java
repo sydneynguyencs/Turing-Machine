@@ -78,7 +78,6 @@ public class TuringMachine {
                 new Transition('0', ' ', 0, 1, Direction.RIGHT),
                 new Transition('0', '0', 1, 1, Direction.RIGHT),
                 new Transition('1', '1', 1, 2, Direction.RIGHT),
-                new Transition(' ', ' ', 2, 0, Direction.LEFT),
 
                 new Transition('0', ' ', 2, 3, Direction.RIGHT),
                 new Transition('0', '0', 3, 3, Direction.RIGHT),
@@ -91,8 +90,6 @@ public class TuringMachine {
                 new Transition('0', '0', 6, 6, Direction.LEFT),
                 new Transition(' ', '0', 6, 2, Direction.RIGHT),
 
-                new Transition(' ', ' ', 2, 0, Direction.LEFT),
-
                 new Transition('x', 'x', 2, 7, Direction.LEFT),
                 new Transition('0', '0', 7, 7, Direction.LEFT),
                 new Transition('1', '1', 7, 8, Direction.LEFT),
@@ -104,6 +101,9 @@ public class TuringMachine {
                 new Transition(' ', ' ', 9, 10, Direction.RIGHT),
                 new Transition('x', ' ', 9, 10, Direction.RIGHT),
 
+                new Transition(' ', ' ', 2, 12, Direction.LEFT),
+                new Transition('1', ' ', 12, 11, Direction.LEFT),
+                new Transition('0', ' ', 11, 11, Direction.LEFT)
         };
         return states;
 
