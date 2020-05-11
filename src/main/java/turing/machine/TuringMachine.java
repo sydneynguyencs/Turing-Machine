@@ -2,6 +2,9 @@ package turing.machine;
 
 import java.util.*;
 
+import static turing.machine.Direction.LEFT;
+import static turing.machine.Direction.RIGHT;
+
 public class TuringMachine {
 
     public static final int INITIAL_STATE = 0;
@@ -19,6 +22,14 @@ public class TuringMachine {
         tape = input.strip().toCharArray();
         headPos = 0;
         states = getStatesForMultiplication();
+    }
+
+    public void extendTapeRightByOne() {
+        //char[] newTape = new char[tape.length + 1];
+        char[] newTape = Arrays.copyOf(tape, tape.length + 1);
+        newTape[newTape.length - 1] = ' ';
+        tape = null;
+        tape = newTape;
     }
 
     public String print() {
@@ -108,12 +119,15 @@ public class TuringMachine {
                 if ((tape[headPos] == t.getRead()) && (state == t.getState())) {
                     //move head
                     tape[headPos] = t.getWrite();
-                    if (t.getDirection().equals(Direction.RIGHT)) {
+                    if (t.getDirection().equals(RIGHT)) {
                         headPos++;
                     } else {
                         headPos--;
                     }
-                    if (headPos > tape.length - 1 || headPos < 0) {
+                    if (headPos > tape.length - 1) {
+                        extendTapeRightByOne();
+                    }
+                    if (headPos < 0) {
                         return;
                     }
                     state = t.getNextState();
@@ -129,11 +143,20 @@ public class TuringMachine {
 
     public Transition[] getStatesForMultiplication() {
         Transition[] states = {
-                //case k*0;
-                new Transition('1', ' ', 0, 1, Direction.RIGHT),
-                new Transition('0', ' ', 1, 1, Direction.RIGHT),
-                new Transition(' ', ' ', 1, 2, Direction.RIGHT),
-                new Transition(OUTPUT_SEPARATOR, ' ', 1, 2, Direction.RIGHT),
+                //case 0*k;
+                new Transition('1', ' ', 0, 1, RIGHT),
+                new Transition('0', ' ', 1, 1, RIGHT),
+                new Transition(' ', ' ', 1, 2, RIGHT),
+                new Transition(OUTPUT_SEPARATOR, ' ', 1, 2, RIGHT),
+                //case k*0
+                new Transition('0', ' ', 0, 3, RIGHT),
+                new Transition('0', '0', 3, 3, RIGHT),
+                new Transition('1', '1', 3, 4, RIGHT),
+                new Transition(' ', ' ', 4, 5, LEFT),
+                new Transition('1', '1', 3, 4, LEFT),
+                new Transition('1', ' ', 5, 6, LEFT),
+                new Transition('0', ' ', 6, 6, LEFT),
+                new Transition(' ', ' ', 6, 2, RIGHT),
 
         };
         return states;

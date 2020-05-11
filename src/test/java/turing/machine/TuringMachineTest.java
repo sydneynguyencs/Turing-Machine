@@ -19,6 +19,9 @@ class TuringMachineTest {
         tm = null;
     }
 
+    /**
+     * case: 0*k, where k is a integer number
+     */
     @Test
     void getStatesForMultiplicationFirstMultiplicandZero() {
         firstMultiplicand = "";
@@ -28,6 +31,9 @@ class TuringMachineTest {
         Assertions.assertEquals("", tm.tapeToString().strip());
     }
 
+    /**
+     * case: ___10....00x0...00
+     */
     @Test
     void getStatesForMultiplicationCalculationEnd() {
         String expected = "0000";
@@ -36,6 +42,18 @@ class TuringMachineTest {
         setTuringMachine(firstMultiplicand, secondMultiplicand);
         tm.fastRun();
         Assertions.assertEquals(expected, tm.tapeToString().strip());
+    }
+
+    /**
+     * case: 0...01
+     */
+    @Test
+    void getStatesForMultiplicationSecondMultiplicandZero() {
+        firstMultiplicand = "0";
+        secondMultiplicand = "";
+        setTuringMachine(firstMultiplicand, secondMultiplicand);
+        tm.fastRun();
+        Assertions.assertEquals("", tm.tapeToString().strip());
     }
 
     private void setTuringMachine(String firstMultiplicand, String secondMultiplicand) {
