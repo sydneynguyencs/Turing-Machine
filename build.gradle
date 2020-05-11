@@ -40,6 +40,10 @@ application {
     mainClassName = 'turing.machine.App'
 }
 
+run{
+    standardInput = System.in
+}
+
 test {
     // Use junit platform for unit tests
     useJUnitPlatform()

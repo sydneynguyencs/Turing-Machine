@@ -8,21 +8,47 @@ import java.util.Scanner;
 public class App {
 
     public static void main(String[] args) {
-        /*
+
+        int a = 0;
+        int b = 0;
+        boolean stepMode = false;
+        boolean inputOk = false;
         Scanner sc = new Scanner(System.in);
-        System.out.print("Erste Zahl: ");
-        int a = sc.nextInt();
-        System.out.println("\nZweite Zahl: ");
-        int b = sc.nextInt();
-        */
-        int a = 10, b = 10;
+        while (!inputOk) {
+            try {
+                System.out.print("Erste Zahl (muss positiv oder null sein): ");
+                String aInput = sc.nextLine().trim();
+                a = Integer.parseInt(aInput);
+                if (a < 0) {
+                    throw new InvalidInputException();
+                }
+                System.out.println("\nZweite Zahl (muss positiv oder null sein): ");
+                String bInput = sc.nextLine().trim();
+                b = Integer.parseInt(bInput);
+                if (b < 0) {
+                    throw new InvalidInputException();
+                }
+                System.out.println("\nLauf-Modus (0 -> Lauf, 1 -> Schritt): ");
+                String stepModeInput = sc.nextLine().trim();
+                if (!stepModeInput.equals("0") && !stepModeInput.equals("1")) {
+                    throw new InvalidInputException();
+                }
+                stepMode = stepModeInput.equals("1");
+                inputOk = true;
+            } catch (InvalidInputException e){
+                // request input again
+            }
+        }
+
         StringBuilder input = new StringBuilder();
         input.append("0".repeat(Math.max(0, a)));
         input.append("1");
         input.append("0".repeat(Math.max(0, b)));
         input.append(" ".repeat(100000));
 
-        TuringMachine turing = new TuringMachine(input.toString(), false);
+        TuringMachine turing = new TuringMachine(input.toString(), stepMode);
         turing.run();
     }
+
+    public static class InvalidInputException extends Exception {}
 }
