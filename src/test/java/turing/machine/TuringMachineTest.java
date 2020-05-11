@@ -49,11 +49,23 @@ class TuringMachineTest {
      */
     @Test
     void getStatesForMultiplicationSecondMultiplicandZero() {
-        firstMultiplicand = "0";
+        firstMultiplicand = "00000";
         secondMultiplicand = "";
         setTuringMachine(firstMultiplicand, secondMultiplicand);
         tm.fastRun();
         Assertions.assertEquals("", tm.tapeToString().strip());
+    }
+
+    /**
+     * case: 0...01
+     */
+    @Test
+    void getStatesForMultiplicationFirstWordIsFinished() {
+        firstMultiplicand = "0";
+        secondMultiplicand = "0";
+        setTuringMachine(firstMultiplicand, secondMultiplicand);
+        tm.fastRun();
+        Assertions.assertEquals("0", tm.tapeToString().strip());
     }
 
     private void setTuringMachine(String firstMultiplicand, String secondMultiplicand) {

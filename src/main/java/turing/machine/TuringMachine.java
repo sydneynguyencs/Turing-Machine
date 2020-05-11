@@ -157,7 +157,19 @@ public class TuringMachine {
                 new Transition('1', ' ', 5, 6, LEFT),
                 new Transition('0', ' ', 6, 6, LEFT),
                 new Transition(' ', ' ', 6, 2, RIGHT),
-
+                //case write to output
+                new Transition('0', ' ', 4, 7, RIGHT),
+                new Transition('0', '0', 7, 7, RIGHT),
+                new Transition(OUTPUT_SEPARATOR, OUTPUT_SEPARATOR, 7, 8, RIGHT),
+                new Transition(' ', OUTPUT_SEPARATOR, 7, 8, RIGHT),
+                new Transition('0', '0', 8, 8, RIGHT),
+                new Transition(' ', '0', 8, 9, LEFT),
+                new Transition('0', '0', 9, 9, LEFT),
+                new Transition('x', 'x', 9, 10, LEFT),
+                new Transition(' ', '0', 10, 11, LEFT),
+                new Transition('0', '0', 11, 11, LEFT),
+                new Transition('1', '1', 11, 12, LEFT),
+                new Transition(' ', ' ', 12, 0, RIGHT)
         };
         return states;
 
