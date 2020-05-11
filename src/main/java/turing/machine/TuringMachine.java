@@ -10,13 +10,15 @@ public class TuringMachine {
     private ListIterator<String> head;
     private int headPos;
     private Transition[] states;
+    private boolean stepMode;
 
-    public TuringMachine(String input) {
+    public TuringMachine(String input, boolean stepMode) {
         state = 0;
         this.input = input;
         tape = input.toCharArray();
         headPos = 0;
         states = getStatesForMultiplication();
+        this.stepMode = stepMode;
     }
 
     public String print() {
@@ -37,20 +39,20 @@ public class TuringMachine {
 
     public void run() {
 
-        int count = 0;
+        int stepCount = 0;
 
         while(true) {
             boolean ok = true;
             for (Transition st : states) {
                 if (st.getRead() == tape[headPos] && state == st.getState()) {
-                    System.out.println("\nStep: " + count); //tape print
-                    System.out.println(st.toString());
-                    System.out.println("Head Position: " + headPos);
+                    stepPrint("\nStep: " + stepCount); //tape print
+                    stepPrint(st.toString());
+                    stepPrint("Head Position: " + headPos);
                     tape[headPos] = st.getWrite();
                     state = st.getNextState();
                     headPos += st.getDirection().getDirection();
-                    System.out.println(print()); //tape print
-                    count++;
+                    stepPrint(print()); //tape print
+                    stepCount++;
                     ok = false;
                 }
             }
@@ -66,8 +68,15 @@ public class TuringMachine {
             }
         }
         System.out.println("____________________________________________________________");
+        System.out.println("Anzahl Schritte: " + stepCount);
         System.out.println("Result als Band: " + print());
         System.out.println("Result als Dec: " + res);
+    }
+
+    private void stepPrint(String string) {
+        if (this.stepMode) {
+            System.out.println(string);
+        }
     }
 
 

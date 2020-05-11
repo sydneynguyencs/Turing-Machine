@@ -15,14 +15,14 @@ public class App {
         System.out.println("\nZweite Zahl: ");
         int b = sc.nextInt();
         */
-        int a = 2, b = 20;
+        int a = 10, b = 10;
         StringBuilder input = new StringBuilder();
         input.append("0".repeat(Math.max(0, a)));
         input.append("1");
         input.append("0".repeat(Math.max(0, b)));
-        input.append(" ".repeat(100));
+        input.append(" ".repeat(100000));
 
-        TuringMachine turing = new TuringMachine(input.toString()); //
+        TuringMachine turing = new TuringMachine(input.toString(), false);
         turing.run();
     }
 }
