@@ -4,8 +4,8 @@ import java.util.*;
 
 public class TuringMachine {
 
-    private final int INITIAL_STATE = 0;
-    private final char OUTPUT_SEPARATOR = 'x';
+    public static final int INITIAL_STATE = 0;
+    public static final char OUTPUT_SEPARATOR = 'x';
     private int state;
     private String input;
     private char[] tape;
@@ -129,11 +129,11 @@ public class TuringMachine {
 
     public Transition[] getStatesForMultiplication() {
         Transition[] states = {
-
+                //case k*0;
                 new Transition('1', ' ', 0, 1, Direction.RIGHT),
                 new Transition('0', ' ', 1, 1, Direction.RIGHT),
                 new Transition(' ', ' ', 1, 2, Direction.RIGHT),
-                new Transition(' ', OUTPUT_SEPARATOR, 1, 2, Direction.RIGHT),
+                new Transition(OUTPUT_SEPARATOR, ' ', 1, 2, Direction.RIGHT),
 
         };
         return states;
